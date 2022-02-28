@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Project2</title>
+	<link rel="stylesheet" type="text/css" href="pr2.css">
+</head>
+<body>
+<h1>Class Marksheet</h1>
+<!-- Input -->
+	<form>
+		<label for="name">Họ và tên:</label>
+  		<input type="text" id="name" name="name">
+	</form>
+	<br>
+	<form>
+		<label for="math">Điểm toán:</label>
+  		<input type="number" id="math" name="math">
+	</form>
+	<br>
+	<form>
+		<label for="physical">Điểm lý:</label>
+  		<input type="number" id="physical" name="physical">
+	</form>
+	<br>
+	<form>
+		<label for="chemistry">Điểm hóa:</label>
+  		<input type="number" id="chemistry" name="chemistry">
+	</form>
+<!-- Kết thúc Input -->
+	<br>
+
+
+<!-- button "nhập" -->
+	<div class="btn1">
+		<button onclick="func1()">Nhập</button>
+	</div>
+<!--Kết thúc button "nhập" -->
+	<br>
+
+
+<!-- Table -->
+	<table style="width: 100%;" id="bang">
+		<tr>
+			<th>STT</th>
+			<th>Họ tên</th>
+			<th>Toán</th>
+			<th>Lý</th>
+			<th>Hóa</th>
+			<th>Trung bình</th>
+		</tr>
+		
+	</table>
+<!--Kết thúc Table -->
+	<br>
+
+
+<!-- button "tính điểm + xác định học sinh giỏi" -->
+	<div class="btn2">
+		<button onclick="func2()">Tính điểm trung bình</button>
+		<button onclick="func3()">Xác định học sinh giỏi</button>
+	</div>
+
+<!-- Kết thúc button "tính điểm + xác định học sinh giỏi" -->
+
+
+	
+<!-- JAVASCRIPT -->
+
+<!-- khai báo đối tượng TestScore -->
+
+	<script type="text/javascript">
+		var testScore = { 
+                name: "",
+                math: 0,
+                physical: 0,
+                chemistry: 0
+ 		};
+
+//kết thúc khai báo đối tượng TestScore
+
+
+
+//CHỨC NĂNG CỦA BUTTON NHẬP
+	 		
+
+	 		let i=0; //số hàng cần thêm ban đầu = 0
+
+	 		function func1(){
+	 		//điều kiện yêu cầu nhập đầy đủ thông tin
+	 			if (!(document.getElementById("name").value && document.getElementById("math").value && document.getElementById("physical").value && document.getElementById("chemistry").value)){
+	 				alert("Bạn hãy nhập đủ thông tin: ");
+	 				return;}
+	 		//kết thúc điều kiện yêu cầu nhập đầy đủ thông tin
+
+
+
+	 //CHỨC NĂNG CHÈN THÊM 1 HÀNG VÀO TABLE VÀ GHI DỮ LIỆU VÀ TỪNG Ô TƯƠNG ỨNG KHI CLICK BUTTON NHẬP
+	 				 			
+	 			i++; //khi click button nhập sẽ tăng 1 hàng
+	 			var table = document.getElementById("bang"); //lấy giá trị cho biến từ bảng
+	 			
+	 		//Cột STT
+				var row = table.insertRow(i); //tạo 1 row
+				var cell0 = row.insertCell(0); //tạo 1 cell trong row
+				cell0.innerHTML = i; //gán giá trị cho cell
+			//Kết thúc cột STT
+
+
+
+			//Cột Họ và tên
+				var cell1 = row.insertCell(1); //tạo 1 cell trong row
+	  			var ht = document.getElementById("name").value;//lấy giá trị cho biến từ input
+	  			testScore.name= ht; //lưu vào object
+	  			document.getElementById("name").value=""; //xóa data ô input
+	  			
+	  			document.getElementById("bang").rows[i].cells[1].innerHTML = testScore.name; //gán giá trị cho cell từ object
+	  		//Kết thúc cột Họ và tên	
+
+	  		//Cột Toán
+	 			var cell2 = row.insertCell(2); //tạo 1 cell trong row
+	  			var t = document.getElementById("math").value; //lấy giá trị cho biến từ input
+	  			if(t>10 || t<=0 ){  // xét điều kiện điểm nhập vào
+	  				testScore.math= t; //lưu vào object
+	  				document.getElementById("math").value=""; //xóa data ô input
+
+	  				document.getElementById("bang").rows[i].cells[2].innerHTML = "ERROR"; //gán giá trị cho cell từ object
+	  			}else{
+	  				testScore.math= t;// lưu vào object
+	  				document.getElementById("math").value=""; //xóa data ô input
+
+	  				document.getElementById("bang").rows[i].cells[2].innerHTML = testScore.math; //gán giá trị cho cell từ object
+	  			}
+	  			
+	  		//Kết thúc cột Toán  
+
+
+	  		//Cột Lý
+	  			var cell3 = row.insertCell(3); //tạo 1 cell trong row
+	  			var l = document.getElementById("physical").value; //lấy giá trị cho biến từ input
+	  			if(l> 10 || l<= 0){ // xét điều kiện điểm nhập vào
+	  				testScore.physical= l; //lưu vào object
+	  				document.getElementById("physical").value=""; //xóa data ô input
+	  				document.getElementById("bang").rows[i].cells[3].innerHTML = "ERROR";//gan gia tri cho cell tu object
+	  			}else{
+	  				testScore.physical= l;  //luu vao object
+	  				document.getElementById("physical").value="";  //xóa data ô input
+	  				document.getElementById("bang").rows[i].cells[3].innerHTML = testScore.physical;  //gán giá trị cho cell từ object
+	  			}
+	  			
+	  		//Kết thúc cột Lý
+	  		
+
+	  		//Cột Hóa
+	  			var cell4 = row.insertCell(4); //tạo 1 cell trong row
+	  			var h = document.getElementById("chemistry").value;  //lấy giá trị cho biến từ input
+	  			if(h> 10 || h<= 0){ // xét điều kiện điểm nhập vào
+	  				testScore.chemistry= h;  //lưu vào object
+	  				document.getElementById("chemistry").value="";  //xóa data ô input
+	  				document.getElementById("bang").rows[i].cells[4].innerHTML = "ERROR"; //gán giá trị cho cell từ object
+	  			}else{
+	  				testScore.chemistry= h;  //luu vao object
+	  				document.getElementById("chemistry").value="";  //xóa data ô input
+	  				document.getElementById("bang").rows[i].cells[4].innerHTML = testScore.chemistry; //gán giá trị cho cell từ object
+	  			
+	  			}
+	  		//Kết thúc cột Hóa
+	  			
+
+	  		//Cột trung binh
+	  			var cell5 = row.insertCell(5); //tạo 1 cell trong row
+	  			var tb="?"; //gán giá trị ban đầu = ?
+	  			document.getElementById("bang").rows[i].cells[5].innerHTML = tb;  //gán giá trị cho cell
+	  			return;		
+	  			
+	 		}
+	 			
+	 		//Kết thúc cột Trung bình
+
+	 //KẾT THÚC CHỨC NĂNG CHÈN THÊM 1 HÀNG VÀO TABLE VÀ GHI DỮ LIỆU VÀ TỪNG Ô TƯƠNG ỨNG KHI CLICK BUTTON NHẬP
+
+
+
+//KẾT THÚC CHỨC NĂNG CỦA BUTTON NHẬP
+
+
+		 //BUTTON TÍNH ĐIỂM TRUNG BÌNH
+		  		function func2(){
+		  			var sum= 0;
+		  			var avg= 0;
+		  			var table = document.getElementById("bang"); //lấy giá trị cho biến
+		  			for(var i = 1; i <= table.rows.length-1; i++){ //xét từng row trong table 				
+		   				sum = Number(table.rows[i].cells[2].innerHTML) + Number(table.rows[i].cells[3].innerHTML) + Number(table.rows[i].cells[4].innerHTML); //tính tổng các cell trong row
+			   			avg = sum/3; // tinh trung binh 
+			   			avg = (avg.toFixed(1)); //chuyển sang dạng number, làm tròn 1 số sau dấu phẩy
+			   			table.rows[i].cells[5].innerHTML = avg; //gán giá trị trung bình vào ô cell tương ứng
+		  			}
+
+		  		}
+		//KẾT THÚC BUTTON TÍNH ĐIỂM TRUNG BÌNH
+
+
+		//CHỨC NĂNG XÉT HSG
+			function func3(){
+				var table = document.getElementById("bang"); //lấy giá trị cho biến
+		  			for(var i = 1, row; row = table.rows[i]; i++){	//xét từng row trong bảng, bắt đầu từ row số 1
+		     				//xét từng cell trong row
+		     				x0= table.rows[i].cells[0].innerHTML; 
+		     				x1= table.rows[i].cells[1].innerHTML;
+		  					x2= table.rows[i].cells[2].innerHTML; 
+		  					x3= table.rows[i].cells[3].innerHTML;
+		  					x4= table.rows[i].cells[4].innerHTML;
+		     				x5= table.rows[i].cells[5].innerHTML;
+		     				if(x5 >= 8){ // đạt điều kiện đạt hsg
+		     				
+		     						//Các ô sẽ chuyển sang màu đỏ nếu đạt điêu kiện hsg
+		     					
+			     					var result0 = x0.fontcolor("red");
+			     					var result1 = x1.fontcolor("red");
+			     					var result2 = x2.fontcolor("red");
+			     					var result3 = x3.fontcolor("red");
+			     					var result4 = x4.fontcolor("red");
+			     					var result5 = x5.fontcolor("red");
+			     					
+			     					table.rows[i].cells[0].innerHTML = result0;
+			     					table.rows[i].cells[1].innerHTML = result1;
+			     					table.rows[i].cells[2].innerHTML = result2;
+			     					table.rows[i].cells[3].innerHTML = result3;
+			     					table.rows[i].cells[4].innerHTML = result4;
+			     					table.rows[i].cells[5].innerHTML = result5;			
+
+
+		     				}
+			     			
+		  			}
+			}
+		//KẾT THÚC CHỨC NĂNG XÉT HSG
+	</script>
+</body>
+</html>
